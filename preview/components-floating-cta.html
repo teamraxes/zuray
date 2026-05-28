@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface); font-family: var(--font-body); color: var(--text); }
+  .panel { background: linear-gradient(180deg, var(--surface-2), var(--surface)); padding: 28px; border-radius: 12px; min-height: 240px; position: relative; border: 1px solid var(--border); }
+  .cluster { position: absolute; right: 24px; bottom: 24px; display: flex; flex-direction: column; gap: 12px; }
+  .fab { width: 56px; height: 56px; border-radius: 999px; background: var(--brand); color: white; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px -6px rgba(15, 68, 25, 0.45); cursor: pointer; border: none; transition: background 150ms, transform 150ms; }
+  .fab:hover { background: var(--brand-ink); transform: scale(1.06); }
+  .fab svg { width: 26px; height: 26px; }
+  .fab.is-pulse { animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 6px 18px -6px rgba(15, 68, 25, 0.45), 0 0 0 0 rgba(26, 116, 37, 0.45); }
+    50%      { box-shadow: 0 6px 18px -6px rgba(15, 68, 25, 0.45), 0 0 0 14px rgba(26, 116, 37, 0); transform: scale(1.04); }
+  }
+  .lbl { font-size: 11px; color: var(--text-mute); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+  .note { font-size: 13px; color: var(--text-mute); margin-top: 8px; max-width: 360px; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="panel">
+    <div class="lbl">ПЛАВАЮЩИЙ CTA · нижний правый угол</div>
+    <p class="note">Max-чат (с&nbsp;пульсацией) · Telegram · позвонить · обратный звонок.<br/>На&nbsp;hover слева выезжает подпись-пилюля. Скрывается на /checkout и&nbsp;/cart.</p>
+    <div class="cluster">
+      <button class="fab is-pulse" title="Чат Max">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </button>
+      <button class="fab" title="Telegram">
+        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21.94 4.5 18.5 20.06c-.26 1.16-.94 1.45-1.9.9l-5.26-3.88-2.54 2.45c-.28.28-.52.52-1.06.52l.38-5.36 9.78-8.84c.43-.38-.09-.59-.66-.21L5.16 13.27 0 11.6c-1.12-.35-1.14-1.12.23-1.66L19.79 2.5c.93-.35 1.74.22 1.45 2z" transform="translate(2 0)"/></svg>
+      </button>
+      <button class="fab" title="Позвонить">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </button>
+      <button class="fab" title="Обратный звонок">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </button>
+    </div>
+  </div>
+</body></html>

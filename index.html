@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>ZURAY — Дизайн-система</title>
+  <link rel="stylesheet" href="colors_and_type.css"/>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    @media (max-width: 700px) { .wrap { padding: 0 16px; } }
+
+    /* ---- Top bar ---- */
+    .hub-top {
+      position: sticky; top: 0; z-index: 50;
+      height: 64px;
+      display: flex; align-items: center;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--surface) 82%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .hub-top__inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .hub-logo { display: inline-flex; align-items: center; gap: 12px; }
+    .hub-logo__mark { width: 96px; height: 24px;
+      -webkit-mask: url(assets/logo/zuray-logo-currentcolor.svg) no-repeat left center / contain;
+              mask: url(assets/logo/zuray-logo-currentcolor.svg) no-repeat left center / contain;
+      background: var(--brand); }
+    .hub-logo__tag { font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mute); padding-left: 12px; border-left: 1px solid var(--border); }
+    .hub-nav { display: flex; gap: 22px; }
+    .hub-nav a { font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--text-mute); text-decoration: none; transition: color 150ms; }
+    .hub-nav a:hover { color: var(--brand-ink); }
+    @media (max-width: 820px) { .hub-nav { display: none; } .hub-logo__tag { display: none; } }
+
+    /* ---- Hero ---- */
+    .hub-hero { padding: clamp(48px, 6vw, 110px) 0 clamp(40px, 5vw, 80px); }
+    .hub-hero__eyebrow { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .hub-hero__rule { width: 48px; height: 1px; background: var(--accent); }
+    .hub-hero h1 {
+      font-family: var(--font-display); font-weight: 400;
+      font-size: clamp(44px, 7vw, 104px); line-height: 0.98; letter-spacing: -0.025em;
+      margin: 0 0 28px; max-width: 16ch;
+    }
+    .hub-hero h1 em { font-style: italic; }
+    .hub-hero__lede { font-family: var(--font-body); font-size: clamp(16px, 1.2vw, 20px); line-height: 1.55; color: var(--text); max-width: 54ch; margin: 0 0 36px; }
+    .hub-hero__meta { display: flex; flex-wrap: wrap; gap: 0 40px; row-gap: 16px; border-top: 1px solid var(--border); padding-top: 24px; }
+    .hub-hero__meta div { display: flex; flex-direction: column; gap: 2px; }
+    .hub-hero__meta dt { font-family: var(--font-body); font-size: 12px; color: var(--text-mute); letter-spacing: 0.04em; }
+    .hub-hero__meta dd { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: 20px; letter-spacing: -0.01em; }
+
+    /* ---- Section scaffold ---- */
+    section[id] { scroll-margin-top: 80px; }
+    .hub-sec { padding: clamp(40px, 5vw, 80px) 0; border-top: 1px solid var(--border); }
+    .hub-sec__head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 36px; flex-wrap: wrap; }
+    .hub-sec__num { font-family: var(--font-display); font-weight: 300; font-size: 26px; -webkit-text-stroke: 1px var(--accent); color: transparent; letter-spacing: -0.02em; }
+    .hub-sec__title { font-family: var(--font-display); font-weight: 500; font-size: clamp(26px, 3vw, 40px); letter-spacing: -0.02em; margin: 0; }
+    .hub-sec__desc { font-family: var(--font-body); font-size: 15px; color: var(--text-mute); max-width: 48ch; margin: 0; }
+
+    /* ---- Color ---- */
+    .sw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+    .sw { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface-2); }
+    .sw__chip { height: 88px; }
+    .sw__meta { padding: 12px 14px; }
+    .sw__name { font-family: var(--font-display); font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
+    .sw__hex { font-family: ui-monospace, monospace; font-size: 12px; color: var(--text-mute); margin-top: 4px; }
+    .sw__role { font-family: var(--font-body); font-size: 11.5px; color: var(--text-faint); margin-top: 6px; line-height: 1.4; }
+
+    /* ---- Type specimen ---- */
+    .type-row { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+    .type-row:last-child { border-bottom: 0; }
+    .type-row__label { font-family: var(--font-body); font-size: 12px; font-weight: 600; }
+    .type-row__spec { font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-faint); margin-top: 6px; }
+    @media (max-width: 640px) { .type-row { grid-template-columns: 1fr; gap: 8px; } }
+
+    /* ---- Tokens (spacing/radius/elevation) ---- */
+    .tok-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+    .tok { display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center; }
+    .tok__box { width: 100%; height: 84px; background: var(--surface-2); border: 1px solid var(--border); display: grid; place-items: center; }
+    .tok__name { font-family: var(--font-body); font-size: 13px; font-weight: 600; }
+    .tok__val { font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-faint); }
+
+    /* ---- Components area ---- */
+    .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 800px) { .comp-grid { grid-template-columns: 1fr; } }
+    .comp-card { border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); overflow: hidden; }
+    .comp-card__bar { padding: 10px 16px; border-bottom: 1px solid var(--border); font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-mute); }
+    .comp-card__body { padding: 24px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+    .btn { font-family: var(--font-body); font-weight: 600; font-size: 15px; padding: 0 22px; height: 46px; border-radius: 8px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 150ms; }
+    .btn--primary { background: var(--brand); color: var(--surface); }
+    .btn--primary:hover { background: var(--brand-ink); }
+    .btn--ghost { background: transparent; box-shadow: inset 0 0 0 1.5px var(--text); color: var(--text); }
+    .btn--ghost:hover { background: var(--text); color: var(--surface); }
+    .btn i { width: 18px; height: 18px; }
+
+    .chip { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); cursor: pointer; }
+    .chip--sel { background: var(--brand-soft); border-color: var(--brand); color: var(--brand-ink); font-weight: 600; }
+    .chip--sel i { width: 14px; height: 14px; color: var(--brand); }
+    .tag { font-family: var(--font-body); font-size: 13px; font-weight: 500; background: var(--accent-soft); color: var(--accent-ink); padding: 5px 12px; border-radius: 999px; }
+    .swatch-dot { width: 36px; height: 36px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(26,20,16,.12); }
+    .swatch-dot--sel { box-shadow: 0 0 0 2px var(--surface-2), 0 0 0 4px var(--brand); }
+    .field { width: 100%; }
+    .field input { width: 100%; font-family: var(--font-body); font-size: 15px; padding: 11px 14px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); color: var(--text); }
+    .field input:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px rgba(26,116,37,.15); }
+
+    /* mini product card */
+    .pc { width: 220px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface-2); }
+    .pc__img { aspect-ratio: 4/5; background: var(--surface); }
+    .pc__img img { width: 100%; height: 100%; object-fit: cover; }
+    .pc__body { padding: 12px; }
+    .pc__name { font-family: var(--font-display); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+    .pc__meta { font-family: var(--font-body); font-size: 11.5px; color: var(--text-mute); margin-top: 4px; }
+    .pc__price { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; }
+    .pc__now { font-family: var(--font-display); font-weight: 500; font-size: 20px; color: var(--status-sale); font-variant-numeric: tabular-nums; }
+    .pc__old { font-family: var(--font-display); font-size: 14px; color: var(--text-mute); text-decoration: line-through; }
+
+    /* ---- Live screens ---- */
+    .screens { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    @media (max-width: 800px) { .screens { grid-template-columns: 1fr; } }
+    .screen { display: block; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--surface-2); text-decoration: none; color: inherit; transition: transform 200ms var(--ease-interactive), box-shadow 200ms; }
+    .screen:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-hover); }
+    .screen__thumb { aspect-ratio: 16/10; background: var(--surface); position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .screen__thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+    .screen__body { padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .screen__name { font-family: var(--font-display); font-weight: 600; font-size: 19px; letter-spacing: -0.01em; }
+    .screen__sub { font-family: var(--font-body); font-size: 13px; color: var(--text-mute); margin-top: 3px; }
+    .screen__go { width: 40px; height: 40px; border-radius: 999px; background: var(--brand); color: var(--surface); display: grid; place-items: center; flex: none; }
+    .screen__go i { width: 18px; height: 18px; }
+    .screen__tags { display: inline-flex; gap: 6px; position: absolute; top: 12px; left: 12px; }
+    .screen__tags span { font-family: var(--font-body); font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: 999px; background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(6px); color: var(--text); }
+
+    .screens-sub { font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mute); margin: 0 0 16px; }
+    .screens-block + .screens-block { margin-top: 40px; }
+
+    /* ---- Download CTA ---- */
+    .dl { background: var(--text); color: var(--surface); border-radius: 16px; padding: clamp(28px, 4vw, 56px); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+    @media (max-width: 720px) { .dl { grid-template-columns: 1fr; } }
+    .dl h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 3.5vw, 44px); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 12px; color: var(--surface); }
+    .dl h2 em { font-style: italic; color: var(--accent); }
+    .dl p { font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: color-mix(in srgb, var(--surface) 80%, transparent); margin: 0; max-width: 52ch; }
+    .dl__btn { font-family: var(--font-body); font-weight: 600; font-size: 16px; padding: 0 26px; height: 56px; border-radius: 10px; border: none; cursor: pointer; background: var(--brand); color: var(--surface); display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; transition: background 150ms; }
+    .dl__btn:hover { background: var(--brand-ink); }
+    .dl__btn i { width: 20px; height: 20px; }
+
+    /* ---- Footer ---- */
+    .hub-foot { padding: 40px 0 60px; border-top: 1px solid var(--border); font-family: var(--font-body); font-size: 13px; color: var(--text-mute); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    .flag { font-family: var(--font-body); font-size: 13px; line-height: 1.5; color: var(--accent-ink); background: var(--accent-soft); border-radius: 10px; padding: 14px 16px; margin-top: 20px; }
+    .flag b { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <!-- ============ TOP BAR ============ -->
+  <header class="hub-top">
+    <div class="wrap hub-top__inner">
+      <div class="hub-logo">
+        <span class="hub-logo__mark" role="img" aria-label="ZURAY"></span>
+        <span class="hub-logo__tag">Дизайн-система</span>
+      </div>
+      <nav class="hub-nav">
+        <a href="#colors">Цвета</a>
+        <a href="#type">Типографика</a>
+        <a href="#tokens">Отбивки</a>
+        <a href="#components">Компоненты</a>
+        <a href="#brand">Бренд</a>
+        <a href="#screens">Экраны</a>
+        <a href="#download">Скачать</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <div class="wrap">
+    <section class="hub-hero">
+      <div class="hub-hero__eyebrow">
+        <span class="hub-hero__rule"></span>
+        <span class="t-eyebrow">Variant A · Editorial Production-Craft</span>
+      </div>
+      <h1>Дизайн-система <em>ZURAY</em></h1>
+      <p class="hub-hero__lede">
+        Единая визуальная система для производителя кошачьей мебели. Не интернет-магазин,
+        а мастерская, которая издаёт каталог: тёплая, фотоцентричная, редакционная.
+        Цвета, типографика, компоненты и живые экраны — на одной странице.
+      </p>
+      <dl class="hub-hero__meta">
+        <div><dt>Бренд-цвет</dt><dd>#1A7425</dd></div>
+        <div><dt>Display</dt><dd>Playfair Display</dd></div>
+        <div><dt>Body</dt><dd>Manrope</dd></div>
+        <div><dt>Экранов</dt><dd>4 + mobile</dd></div>
+        <div><dt>Год</dt><dd>2018</dd></div>
+      </dl>
+    </section>
+  </div>
+
+  <!-- ============ COLORS ============ -->
+  <div class="wrap">
+    <section class="hub-sec" id="colors">
+      <div class="hub-sec__head">
+        <span class="hub-sec__num">01</span>
+        <h2 class="hub-sec__title">Цвета</h2>
+        <p class="hub-sec__desc">Тёплая журнальная палитра. Фон — кремовый, никогда чисто-белый. Зелёный и терракота несут смысл.</p>
+      </div>
+      <div class="sw-grid" id="sw-grid"></div>
+    </section>
+  </div>
+
+  <!-- ============ TYPE ============ -->
+  <div class="wrap">
+    <section class="hub-sec" id="type">
+      <div class="hub-sec__head">
+        <span class="hub-sec__num">02</span>
+        <h2 class="hub-sec__title">Типографика</h2>
+        <p class="hub-sec__desc">Playfair Display — редакционный serif с кириллицей для заголовков. Manrope — тёплый гротеск для текста и UI.</p>
+      </div>
+
+      <div class="type-row">
+        <div><div class="type-row__label">Hero</div><div class="type-row__spec">Playfair Display · 400</div></div>
+        <div style="font-family: var(--font-display); font-weight: 400; font-size: 64px; line-height: 0.95; letter-spacing: -0.025em;">Кошачья мебель</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-row__label">Display · italic</div><div class="type-row__spec">Playfair Display · 400 italic</div></div>
+        <div style="font-family: var(--font-display); font-weight: 400; font-style: italic; font-size: 44px; letter-spacing: -0.02em;">собранная руками</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-row__label">Заголовок H2</div><div class="type-row__spec">Playfair Display · 500</div></div>
+        <div style="font-family: var(--font-display); font-weight: 500; font-size: 30px; letter-spacing: -0.015em;">Каждое изделие проходит руки мастера</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-row__label">Подзаголовок</div><div class="type-row__spec">Manrope · 400 · 18px</div></div>
+        <div style="font-family: var(--font-body); font-size: 18px; line-height: 1.5; max-width: 46ch;">Производим домики, комплексы и когтеточки с 2018 года.</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-row__label">Основной текст</div><div class="type-row__spec">Manrope · 400 · 16px · 1.55</div></div>
+        <div style="font-family: var(--font-body); font-size: 16px; line-height: 1.55; max-width: 56ch;">Мы режем фанеру, шьём чехлы, наматываем джут — в одной мастерской под Тулой. Без посредников и без склейки на коленке.</div>
+      </div>
+      <div class="type-row">
+        <div><div class="type-row__label">Надзаголовок</div><div class="type-row__spec">Manrope · 600 · 12px · UPPER</div></div>
+        <div><span class="t-eyebrow">ПРОИЗВОДСТВО · РОССИЯ · 2018</span></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ TOKENS ============ -->
+  <div class="wrap">
+    <section class="hub-sec" id="tokens">
+      <div class="hub-sec__head">
+        <span class="hub-sec__num">03</span>
+        <h2 class="hub-sec__title">Отбивки и форма</h2>
+        <p class="hub-sec__desc">База 4px, скругления от 6 до 12px (пилюли только для чипов), плоские тени с подъёмом на hover.</p>
+      </div>
+      <p class="screens-sub">Скругления</p>
+      <div class="tok-grid" style="margin-bottom: 36px;">
+        <div class="tok"><div class="tok__box" style="border-radius:6px;"></div><div class="tok__name">Малое</div><div class="tok__val">6px</div></div>
+        <div class="tok"><div class="tok__box" style="border-radius:8px;"></div><div class="tok__name">Кнопки / поля</div><div class="tok__val">8px</div></div>
+        <div class="tok"><div class="tok__box" style="border-radius:12px;"></div><div class="tok__name">Карточки</div><div class="tok__val">12px</div></div>
+        <div class="tok"><div class="tok__box" style="border-radius:999px; height:40px; align-self:center;"></div><div class="tok__name">Пилюли</div><div class="tok__val">999px</div></div>
+      </div>
+      <p class="screens-sub">Тени / подъём</p>
+      <div class="tok-grid">
+        <div class="tok"><div class="tok__box" style="box-shadow: 0 1px 0 var(--border); border-radius:12px;"></div><div class="tok__name">Покой</div><div class="tok__val">hairline</div></div>
+        <div class="tok"><div class="tok__box" style="box-shadow: 0 8px 24px -8px rgba(26,20,16,.12); border-radius:12px;"></div><div class="tok__name">Hover карточки</div><div class="tok__val">0 8px 24px</div></div>
+        <div class="tok"><div class="tok__box" style="box-shadow: 0 12px 32px -12px rgba(26,20,16,.18), 0 0 0 1px var(--border); border-radius:12px;"></div><div class="tok__name">Поповеры</div><div class="tok__val">0 12px 32px</div></div>
+        <div class="tok"><div class="tok__box" style="box-shadow: 0 6px 18px -6px rgba(15,68,25,.3); border-radius:12px; background: var(--brand);"></div><div class="tok__name">Плавающий CTA</div><div class="tok__val">green-tint</div></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ COMPONENTS ============ -->
+  <div class="wrap">
+    <section class="hub-sec" id="components">
+      <div class="hub-sec__head">
+        <span class="hub-sec__num">04</span>
+        <h2 class="hub-sec__title">Компоненты</h2>
+        <p class="hub-sec__desc">Базовые примитивы интерфейса. Все интерактивные элементы имеют focus-ring и состояния hover / active.</p>
+      </div>
+      <div class="comp-grid">
+        <div class="comp-card">
+          <div class="comp-card__bar">Кнопки</div>
+          <div class="comp-card__body">
+            <button class="btn btn--primary">В корзину</button>
+            <button class="btn btn--ghost">Экскурсия</button>
+          </div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-card__bar">Фильтр-чипы · выбранный</div>
+          <div class="comp-card__body">
+            <span class="chip chip--sel"><i data-lucide="check"></i>Комплексы</span>
+            <span class="chip">Когтеточки</span>
+            <span class="chip">Домики</span>
+          </div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-card__bar">Теги «Особенности»</div>
+          <div class="comp-card__body">
+            <span class="tag">Для крупных кошек</span>
+            <span class="tag">Не шатается</span>
+            <span class="tag">Сменный чехол</span>
+          </div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-card__bar">Свотчи варианта</div>
+          <div class="comp-card__body">
+            <span class="swatch-dot swatch-dot--sel" style="background:#EFE3CB;"></span>
+            <span class="swatch-dot" style="background:#C9C9C9;"></span>
+            <span class="swatch-dot" style="background:#D8C19A;"></span>
+            <span class="swatch-dot" style="background:#4A3E33;"></span>
+            <span class="swatch-dot" style="background:#1A1410;"></span>
+          </div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-card__bar">Поле ввода · фокус</div>
+          <div class="comp-card__body">
+            <div class="field"><input type="text" placeholder="+7 (___) ___-__-__" /></div>
+          </div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-card__bar">Карточка товара · со скидкой</div>
+          <div class="comp-card__body" style="justify-content:center;">
+            <div class="pc">
+              <div class="pc__img"><img src="assets/products/altai-cream.png" alt=""/></div>
+              <div class="pc__body">
+                <div class="pc__name">Комплекс «Алтай», 165 см</div>
+                <div class="pc__meta">обмотка — джут</div>
+                <div class="pc__price"><span class="pc__now">₽10 320</span><span class="pc__old">₽12 900</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ BRAND ============ -->
+  <div class="wrap">
+    <section class="hub-sec" id="brand">
+      <div class="hub-sec__head">
+        <span class="hub-sec__num">05</span>
+        <h2 class="hub-sec__title">Бренд</h2>
+        <p class="hub-sec__desc">Wordmark ZURAY в двух вариантах. Фотография несёт эмоцию бренда; иконки — Lucide (замещение).</p>
+      </div>
+      <div class="comp-grid">
+        <div class="comp-card">
+          <div class="comp-card__bar">Логотип · фирменная заливка</div>
+          <div class="comp-card__body" style="justify-content:center; background: var(--surface); min-height: 120px;">
+            <span style="width:200px; height:48px; background: var(--brand); -webkit-mask: url(assets/logo/zuray-logo-currentcolor.svg) no-repeat center / contain; mask: url(assets/logo/zuray-logo-currentcolor.svg) no-repeat center / contain;" role="img" aria-label="ZURAY"></span>
+          </div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-card__bar">Логотип · на тёмном</div>
+          <div class="comp-card__body" style="justify-content:center; background: #1A1410; min-height: 120px;">
+            <span style="width:200px; height:48px; background: var(--surface); -webkit-mask: url(assets/logo/zuray-logo-currentcolor.svg) no-repeat center / contain; mask: url(assets/logo/zuray-logo-currentcolor.svg) no-repeat center / contain;" role="img" aria-label="ZURAY"></span>
+          </div>
+        </div>
+      </div>
+      <p class="screens-sub" style="margin-top:28px;">Иконки · Lucide · обводка 1.75</p>
+      <div class="comp-card">
+        <div class="comp-card__body" style="gap:24px; color: var(--text);">
+          <i data-lucide="home"></i><i data-lucide="search"></i><i data-lucide="shopping-bag"></i>
+          <i data-lucide="heart"></i><i data-lucide="truck"></i><i data-lucide="map-pin"></i>
+          <i data-lucide="phone"></i><i data-lucide="filter"></i><i data-lucide="star"></i>
+          <i data-lucide="message-circle"></i><i data-lucide="send"></i><i data-lucide="user"></i>
+        </div>
+      </div>
+      <div class="flag">
+        <b>Флаги замещений:</b> Иконки — Lucide (открытая лицензия), заменить на фирменный набор при заказе. Display-шрифт — Playfair Display вместо Fraunces (у Fraunces нет кириллицы). Фотографии с водяным знаком «PET BMF» — референс, нужна съёмка с правами ZURAY.
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ LIVE SCREENS ============ -->
+  <div class="wrap">
+    <section class="hub-sec" id="screens">
+      <div class="hub-sec__head">
+        <span class="hub-sec__num">06</span>
+        <h2 class="hub-sec__title">Живые экраны UI-kit</h2>
+        <p class="hub-sec__desc">Интерактивные React-прототипы — кликабельные фильтры, табы, ховеры, варианты. Откроются в новой вкладке.</p>
+      </div>
+
+      <div class="screens-block">
+        <p class="screens-sub">Десктоп</p>
+        <div class="screens">
+          <a class="screen" href="ui_kits/zuray-web/index.html" target="_blank" rel="noopener">
+            <div class="screen__thumb"><div class="screen__tags"><span>Desktop</span></div><img src="screenshots/hero-v2.png" alt="Главная"/></div>
+            <div class="screen__body"><div><div class="screen__name">Главная</div><div class="screen__sub">Hero · категории · бестселлеры · производство</div></div><span class="screen__go"><i data-lucide="arrow-up-right"></i></span></div>
+          </a>
+          <a class="screen" href="ui_kits/zuray-web/catalog.html" target="_blank" rel="noopener">
+            <div class="screen__thumb"><div class="screen__tags"><span>Desktop</span></div><img src="screenshots/catalog.png" alt="Каталог"/></div>
+            <div class="screen__body"><div><div class="screen__name">Каталог</div><div class="screen__sub">Сайдбар фильтров · сетка · сортировка</div></div><span class="screen__go"><i data-lucide="arrow-up-right"></i></span></div>
+          </a>
+          <a class="screen" href="ui_kits/zuray-web/product.html" target="_blank" rel="noopener">
+            <div class="screen__thumb"><div class="screen__tags"><span>Desktop</span></div><img src="screenshots/product.png" alt="Карточка товара"/></div>
+            <div class="screen__body"><div><div class="screen__name">Карточка товара</div><div class="screen__sub">Галерея · варианты · табы · рекомендации</div></div><span class="screen__go"><i data-lucide="arrow-up-right"></i></span></div>
+          </a>
+          <a class="screen" href="ui_kits/zuray-web/about.html" target="_blank" rel="noopener">
+            <div class="screen__thumb"><div class="screen__tags"><span>Desktop</span></div><img src="screenshots/about.png" alt="О компании"/></div>
+            <div class="screen__body"><div><div class="screen__name">О компании</div><div class="screen__sub">Манифест · таймлайн · команда · цитата</div></div><span class="screen__go"><i data-lucide="arrow-up-right"></i></span></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="screens-block">
+        <p class="screens-sub">Мобайл · iPhone 16 Pro</p>
+        <div class="screens">
+          <a class="screen" href="ui_kits/zuray-web/catalog-mobile.html" target="_blank" rel="noopener">
+            <div class="screen__thumb"><div class="screen__tags"><span>Mobile</span></div><img src="screenshots/catalog-mobile-v2.png" alt="Каталог mobile"/></div>
+            <div class="screen__body"><div><div class="screen__name">Каталог</div><div class="screen__sub">Bottom-sheet фильтры · сетка 2×N</div></div><span class="screen__go"><i data-lucide="arrow-up-right"></i></span></div>
+          </a>
+          <a class="screen" href="ui_kits/zuray-web/product-mobile.html" target="_blank" rel="noopener">
+            <div class="screen__thumb"><div class="screen__tags"><span>Mobile</span></div><img src="screenshots/product-mobile.png" alt="Товар mobile"/></div>
+            <div class="screen__body"><div><div class="screen__name">Карточка товара</div><div class="screen__sub">Галерея · sticky «В корзину»</div></div><span class="screen__go"><i data-lucide="arrow-up-right"></i></span></div>
+          </a>
+          <a class="screen" href="ui_kits/zuray-web/about-mobile.html" target="_blank" rel="noopener">
+            <div class="screen__thumb"><div class="screen__tags"><span>Mobile</span></div><img src="screenshots/about-mobile.png" alt="О компании mobile"/></div>
+            <div class="screen__body"><div><div class="screen__name">О компании</div><div class="screen__sub">Манифест · таймлайн · команда</div></div><span class="screen__go"><i data-lucide="arrow-up-right"></i></span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ DOWNLOAD ============ -->
+  <div class="wrap">
+    <section class="hub-sec" id="download" style="border-bottom: none;">
+      <div class="dl">
+        <div>
+          <h2>Забрать всю систему <em>одним архивом</em></h2>
+          <p>Внутри: токены <code style="color:var(--surface);">colors_and_type.css</code>, шрифты, ассеты, превью-карточки, живые React-экраны и SKILL.md для агентов. Архив скачивается через карточку в чате — нажмите кнопку ниже и подтвердите.</p>
+        </div>
+        <button class="dl__btn" id="dl-btn">
+          <i data-lucide="download"></i>
+          Скачать проект (.zip)
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="wrap">
+    <footer class="hub-foot">
+      <span>ООО «ЗУРАЙ» · zuray.ru · Тула · с 2018</span>
+      <span>ZURAY Design System · Variant A · Editorial Production-Craft</span>
+    </footer>
+  </div>
+
+  <script>
+    // Build color swatches
+    const COLORS = [
+      { n: 'Фирменный', hex: '#1A7425', role: 'CTA, активные ссылки, логотип' },
+      { n: 'Тёмный лесной', hex: '#0F4419', role: 'Hover, плотные заголовки' },
+      { n: 'Терракота', hex: '#C77F3F', role: 'Тёплый акцент, теги, цифры' },
+      { n: 'Цена скидки', hex: '#EB0000', role: 'Только функционально' },
+      { n: 'Кремовый фон', hex: '#FAF7F0', role: 'Фон страницы — не белый' },
+      { n: 'Карточки', hex: '#F2EDDF', role: 'Приподнятые поверхности' },
+      { n: 'Текст', hex: '#1A1410', role: 'Тёплый почти-чёрный' },
+      { n: 'Приглушённый', hex: '#756E60', role: 'Подписи, мета' },
+      { n: 'Граница', hex: '#E8E1D2', role: 'Тонкие линии 1px' },
+      { n: 'Зелёный осветл.', hex: '#E6F0E2', role: 'Выбранные фильтры' },
+      { n: 'Тег-плашка', hex: '#F5E4D1', role: 'Фон чипов' },
+      { n: 'Граница ввода', hex: '#C9BFA6', role: 'Поля ввода' },
+    ];
+    const grid = document.getElementById('sw-grid');
+    grid.innerHTML = COLORS.map(c => {
+      const dark = ['#1A1410','#0F4419','#1A7425','#EB0000','#756E60','#C77F3F'].includes(c.hex);
+      return `<div class="sw"><div class="sw__chip" style="background:${c.hex};"></div>
+        <div class="sw__meta"><div class="sw__name">${c.n}</div><div class="sw__hex">${c.hex}</div><div class="sw__role">${c.role}</div></div></div>`;
+    }).join('');
+
+    // Download button → message host (chat download card). Fallback: alert.
+    document.getElementById('dl-btn').addEventListener('click', () => {
+      try {
+        window.parent.postMessage({ type: 'request-download', scope: 'project' }, '*');
+      } catch (e) {}
+      // Visual ack
+      const b = document.getElementById('dl-btn');
+      b.innerHTML = '<i data-lucide="check"></i> Готовлю архив…';
+      if (window.lucide) lucide.createIcons();
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

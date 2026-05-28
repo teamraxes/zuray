@@ -1,0 +1,12 @@
+# Client reference material — not deployed
+uploads/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Logs
+*.log

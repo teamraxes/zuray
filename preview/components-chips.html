@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 32px; background: var(--surface); font-family: var(--font-body); color: var(--text); }
+  .lbl { font-size: 11px; color: var(--text-mute); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 22px; }
+
+  .chip-tag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-size: 13px; font-weight: 500; }
+
+  .chip-filter { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: var(--surface-2); color: var(--text); font-size: 14px; font-weight: 500; border: 1px solid var(--border); cursor: pointer; transition: all 150ms; }
+  .chip-filter:hover { border-color: var(--text-mute); }
+  .chip-filter.is-selected { background: var(--brand-soft); border-color: var(--brand); color: var(--brand-ink); font-weight: 600; }
+  .check { width: 14px; height: 14px; color: var(--brand); }
+</style>
+</head>
+<body>
+  <div class="lbl">ТЕГИ «ОСОБЕННОСТИ» · терракотовые плашки</div>
+  <div class="row">
+    <span class="chip-tag">Для крупных кошек</span>
+    <span class="chip-tag">Не шатается</span>
+    <span class="chip-tag">Собирается за 10 минут</span>
+    <span class="chip-tag">Сменные элементы</span>
+  </div>
+
+  <div class="lbl">ФИЛЬТРЫ · по&nbsp;умолчанию · выбранный</div>
+  <div class="row">
+    <button class="chip-filter">Комплексы</button>
+    <button class="chip-filter is-selected">
+      <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Когтеточки
+    </button>
+    <button class="chip-filter">Домики</button>
+    <button class="chip-filter">На заказ</button>
+  </div>
+</body></html>

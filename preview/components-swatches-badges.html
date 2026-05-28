@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 28px 32px; background: var(--surface); font-family: var(--font-body); color: var(--text); }
+  .lbl { font-size: 11px; color: var(--text-mute); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
+  .row { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+  .sw { width: 36px; height: 36px; border-radius: 999px; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(26,20,16,0.12); transition: box-shadow 150ms; }
+  .sw.is-selected { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--brand); }
+  .sw-cream { background: #EFE3CB; }
+  .sw-grey  { background: #C9C9C9; }
+  .sw-beige { background: #D8C19A; }
+  .sw-dark  { background: #4A3E33; }
+  .sw-black { background: #1A1410; }
+
+  .badge-stock { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-ink); font-size: 13px; font-weight: 600; }
+  .badge-stock .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--brand); }
+  .badge-low   { background: rgba(199, 127, 63, 0.18); color: var(--accent-ink); }
+  .badge-low .dot { background: var(--accent); }
+  .badge-out   { background: rgba(117, 110, 96, 0.18); color: var(--text-mute); }
+  .badge-out .dot { background: var(--text-mute); }
+
+  .cart { position: relative; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; color: var(--text); }
+  .cart svg { width: 22px; height: 22px; }
+  .count { position: absolute; top: -4px; right: -6px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: var(--brand); color: var(--surface); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+  <div class="lbl">ЦВЕТА ВАРИАНТА · выбор обмотки</div>
+  <div class="row">
+    <span class="sw sw-cream is-selected" title="Кремовый"></span>
+    <span class="sw sw-grey" title="Серый"></span>
+    <span class="sw sw-beige" title="Бежевый"></span>
+    <span class="sw sw-dark" title="Тёмное дерево"></span>
+    <span class="sw sw-black" title="Чёрный"></span>
+  </div>
+
+  <div class="lbl">СТАТУС НАЛИЧИЯ · бейдж корзины</div>
+  <div class="row">
+    <span class="badge-stock"><span class="dot"></span>В наличии · отправим завтра</span>
+    <span class="badge-stock badge-low"><span class="dot"></span>Осталось 2</span>
+    <span class="badge-stock badge-out"><span class="dot"></span>Нет в наличии</span>
+    <span class="cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="count">3</span></span>
+  </div>
+</body></html>

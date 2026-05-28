@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 24px 32px; background: var(--surface); }
+  .row { display: grid; grid-template-columns: 130px 1fr; gap: 24px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .row:last-child { border-bottom: 0; }
+  .label { font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--text); letter-spacing: -0.01em; }
+  .meta  { font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-faint); margin-top: 6px; }
+  .num { font-family: var(--font-display); font-variation-settings: 'opsz' 144, 'wght' 300; font-size: 80px; line-height: 0.9; letter-spacing: -0.04em; -webkit-text-stroke: 1px var(--accent); color: transparent; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div><div class="label">Надзаголовок</div><div class="meta">Manrope · 600 · 12px · UPPER</div></div>
+    <span class="t-eyebrow">ПРОИЗВОДСТВО · РОССИЯ · 2018</span>
+  </div>
+  <div class="row">
+    <div><div class="label">Подпись</div><div class="meta">Manrope · 400 · 13px · приглушённый</div></div>
+    <span class="t-caption">Фото: мастерская ZURAY, Тула, июнь&nbsp;2024</span>
+  </div>
+  <div class="row">
+    <div><div class="label">Цифра-акцент</div><div class="meta">Playfair Display · контур · терракота</div></div>
+    <span class="num">01 · 02</span>
+  </div>
+</body></html>

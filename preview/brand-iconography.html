@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body { margin: 0; padding: 28px 32px; background: var(--surface); font-family: var(--font-body); color: var(--text); }
+  .lbl { font-size: 11px; color: var(--text-mute); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 14px 18px; align-items: center; }
+  .cell { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text); }
+  .cell svg { stroke-width: 1.75; }
+  .name { font-size: 10px; color: var(--text-mute); letter-spacing: 0.02em; }
+  .note { font-size: 12px; color: var(--text-mute); margin-top: 18px; line-height: 1.5; }
+  .note b { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="lbl">ИКОНКИ · Lucide · толщина обводки 1.75</div>
+  <div class="grid">
+    <div class="cell"><i data-lucide="home" width="22" height="22"></i><span class="name">home</span></div>
+    <div class="cell"><i data-lucide="search" width="22" height="22"></i><span class="name">search</span></div>
+    <div class="cell"><i data-lucide="shopping-bag" width="22" height="22"></i><span class="name">bag</span></div>
+    <div class="cell"><i data-lucide="user" width="22" height="22"></i><span class="name">user</span></div>
+    <div class="cell"><i data-lucide="heart" width="22" height="22"></i><span class="name">heart</span></div>
+    <div class="cell"><i data-lucide="truck" width="22" height="22"></i><span class="name">truck</span></div>
+    <div class="cell"><i data-lucide="map-pin" width="22" height="22"></i><span class="name">map-pin</span></div>
+    <div class="cell"><i data-lucide="phone" width="22" height="22"></i><span class="name">phone</span></div>
+    <div class="cell"><i data-lucide="check" width="22" height="22" style="color: var(--brand);"></i><span class="name">check</span></div>
+    <div class="cell"><i data-lucide="chevron-down" width="22" height="22"></i><span class="name">chevron</span></div>
+    <div class="cell"><i data-lucide="filter" width="22" height="22"></i><span class="name">filter</span></div>
+    <div class="cell"><i data-lucide="arrow-right" width="22" height="22"></i><span class="name">arrow-r</span></div>
+    <div class="cell"><i data-lucide="star" width="22" height="22"></i><span class="name">star</span></div>
+    <div class="cell"><i data-lucide="message-circle" width="22" height="22"></i><span class="name">chat</span></div>
+    <div class="cell"><i data-lucide="send" width="22" height="22"></i><span class="name">send</span></div>
+    <div class="cell"><i data-lucide="menu" width="22" height="22"></i><span class="name">menu</span></div>
+  </div>
+  <p class="note"><b>Замещение:</b> Lucide подключён через CDN — открытая лицензия, currentColor, скруглённые окончания линий совпадают со&nbsp;стилем бренда. Заменим на&nbsp;собственный набор, когда закажем иллюстратору.</p>
+  <script>lucide.createIcons();</script>
+</body></html>

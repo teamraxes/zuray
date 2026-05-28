@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 0; background: var(--surface); font-family: var(--font-body); color: var(--text); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 220px; }
+  .cell { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 32px; position: relative; }
+  .light { background: var(--surface); }
+  .dark  { background: #1A1410; }
+  .light img { height: 56px; width: auto; display: block; }
+
+  /* Use CSS mask so the wordmark takes on the cell's background-fill color reliably.
+     Avoids the <img currentColor> pitfall (color does not propagate into external SVGs). */
+  .wordmark {
+    width: 200px; height: 56px;
+    -webkit-mask: url(../assets/logo/zuray-logo-currentcolor.svg) no-repeat center / contain;
+            mask: url(../assets/logo/zuray-logo-currentcolor.svg) no-repeat center / contain;
+  }
+  .wordmark--cream { background: var(--surface); }
+  .wordmark--brand { background: var(--brand); }
+
+  .meta { font-family: var(--font-body); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+  .light .meta { color: var(--text-mute); }
+  .dark  .meta { color: rgba(250, 247, 240, 0.55); }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="cell light">
+      <span class="wordmark wordmark--brand" role="img" aria-label="ZURAY"></span>
+      <span class="meta">ФИРМЕННАЯ ЗАЛИВКА · #1A7425</span>
+    </div>
+    <div class="cell dark">
+      <span class="wordmark wordmark--cream" role="img" aria-label="ZURAY"></span>
+      <span class="meta">CURRENTCOLOR · на&nbsp;тёмном фоне</span>
+    </div>
+  </div>
+</body></html>

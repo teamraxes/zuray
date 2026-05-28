@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface); font-family: var(--font-body); color: var(--text); }
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .cell { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .swatch { width: 96px; height: 80px; background: #F2EDDF; border: 1px solid var(--border); }
+  .r-btn   { border-radius: 8px; }
+  .r-card  { border-radius: 12px; }
+  .r-pill  { border-radius: 999px; }
+  .r-sm    { border-radius: 6px; }
+  .r-none  { border-radius: 0; }
+  .name { font-size: 12px; font-weight: 600; text-align: center; }
+  .val { font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-faint); }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="cell"><div class="swatch r-none"></div><div class="name">Без скругления</div><div class="val">0</div></div>
+    <div class="cell"><div class="swatch r-sm"></div><div class="name">Малое</div><div class="val">6 px · --radius-sm</div></div>
+    <div class="cell"><div class="swatch r-btn"></div><div class="name">Кнопки и поля</div><div class="val">8 px · --radius-button</div></div>
+    <div class="cell"><div class="swatch r-card"></div><div class="name">Карточки</div><div class="val">12 px · --radius-card</div></div>
+    <div class="cell"><div class="swatch r-pill" style="height: 32px; width: 96px; margin-top: 24px;"></div><div class="name">Пилюли</div><div class="val">999 · только чипы</div></div>
+  </div>
+</body></html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 24px; background: var(--surface); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sw { display: flex; align-items: stretch; gap: 14px; }
+  .chip { width: 88px; height: 88px; border-radius: 12px; box-shadow: inset 0 0 0 1px rgba(26,20,16,.08); flex: none; }
+  .meta { display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+  .meta .name { font-family: var(--font-display); font-variation-settings: 'opsz' 24, 'wght' 600; font-size: 17px; letter-spacing: -0.01em; color: var(--text); }
+  .meta .role { font-family: var(--font-body); font-size: 12px; color: var(--text-mute); margin-top: 4px; line-height: 1.4; max-width: 22ch; }
+  .meta .code { font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-faint); margin-top: 6px; }
+  .meta .hex { font-family: ui-monospace, monospace; font-weight: 600; font-size: 13px; color: var(--text); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="sw">
+      <div class="chip" style="background:#1A1410;"></div>
+      <div class="meta">
+        <div class="name">Основной текст</div>
+        <div class="hex">#1A1410</div>
+        <div class="role">Тёплый почти-чёрный — заголовки и параграфы</div>
+        <div class="code">--text</div>
+      </div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#756E60;"></div>
+      <div class="meta">
+        <div class="name">Приглушённый</div>
+        <div class="hex">#756E60</div>
+        <div class="role">Подписи, мета-данные</div>
+        <div class="code">--text-mute</div>
+      </div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#A89F8C;"></div>
+      <div class="meta">
+        <div class="name">Бледный</div>
+        <div class="hex">#A89F8C</div>
+        <div class="role">Плейсхолдеры, третичный текст</div>
+        <div class="code">--text-faint</div>
+      </div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background:#C9BFA6;"></div>
+      <div class="meta">
+        <div class="name">Граница ввода</div>
+        <div class="hex">#C9BFA6</div>
+        <div class="role">Поля ввода, выраженные разделители</div>
+        <div class="code">--border-strong</div>
+      </div>
+    </div>
+  </div>
+</body></html>

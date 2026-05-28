@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 28px 32px; background: var(--surface); font-family: var(--font-body); color: var(--text); }
+  .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .row:last-child { border-bottom: 0; }
+  .name { font-weight: 600; font-size: 14px; }
+  .val { font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-faint); margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .ball { width: 16px; height: 16px; border-radius: 999px; background: var(--brand); }
+  .track { position: relative; width: 220px; height: 16px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+  .track .ball { position: absolute; left: 4px; top: 0; animation: slide 2.4s infinite alternate; }
+  .reveal .ball { animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); animation-duration: 1.8s; }
+  .interactive .ball { animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); animation-duration: 1.2s; }
+  @keyframes slide { from { left: 4px; } to { left: 200px; } }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div><div class="name">Появление при скролле</div><div class="val">cubic-bezier(0.16, 1, 0.3, 1) · 600 мс</div></div>
+    <div class="track reveal"><div class="ball"></div></div>
+  </div>
+  <div class="row">
+    <div><div class="name">Интерактив — hover, нажатие, фокус</div><div class="val">cubic-bezier(0.4, 0, 0.2, 1) · 150–300 мс</div></div>
+    <div class="track interactive"><div class="ball"></div></div>
+  </div>
+  <div class="row">
+    <div><div class="name">Длительности</div><div class="val">микро 150 · обычная 300 · появление 600</div></div>
+    <div style="font-family: var(--font-display); font-variation-settings: 'opsz' 48, 'wght' 500; font-size: 22px; color: var(--text-mute); letter-spacing: -0.01em;">150 · 300 · 600</div>
+  </div>
+</body></html>

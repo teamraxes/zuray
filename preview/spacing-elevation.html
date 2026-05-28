@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<style>
+  body { margin: 0; padding: 32px; background: var(--surface); font-family: var(--font-body); color: var(--text); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .cell { display: flex; flex-direction: column; align-items: center; gap: 12px; padding-bottom: 8px; }
+  .swatch { width: 150px; height: 90px; background: var(--surface-2); border-radius: 12px; }
+  .s1 { box-shadow: 0 1px 0 var(--border); }
+  .s2 { box-shadow: 0 8px 24px -8px rgba(26, 20, 16, 0.12); }
+  .s3 { box-shadow: 0 12px 32px -12px rgba(26, 20, 16, 0.18), 0 0 0 1px var(--border); }
+  .name { font-size: 13px; font-weight: 600; }
+  .val { font-family: ui-monospace, monospace; font-size: 11px; color: var(--text-faint); text-align: center; line-height: 1.4; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="cell">
+      <div class="swatch s1"></div>
+      <div class="name">Покой · линия 1px</div>
+      <div class="val">--shadow-hairline<br/>0 1px 0 border</div>
+    </div>
+    <div class="cell">
+      <div class="swatch s2"></div>
+      <div class="name">Карточка под курсором</div>
+      <div class="val">--shadow-card-hover<br/>0 8px 24px / .12</div>
+    </div>
+    <div class="cell">
+      <div class="swatch s3"></div>
+      <div class="name">Меню и поповеры</div>
+      <div class="val">--shadow-popover<br/>0 12px 32px / .18</div>
+    </div>
+  </div>
+</body></html>
