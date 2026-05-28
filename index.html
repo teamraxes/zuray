@@ -165,7 +165,6 @@
         <a href="#components">Компоненты</a>
         <a href="#brand">Бренд</a>
         <a href="#screens">Экраны</a>
-        <a href="#download">Скачать</a>
       </nav>
     </div>
   </header>
@@ -419,22 +418,6 @@
     </section>
   </div>
 
-  <!-- ============ DOWNLOAD ============ -->
-  <div class="wrap">
-    <section class="hub-sec" id="download" style="border-bottom: none;">
-      <div class="dl">
-        <div>
-          <h2>Забрать всю систему <em>одним архивом</em></h2>
-          <p>Внутри: токены <code style="color:var(--surface);">colors_and_type.css</code>, шрифты, ассеты, превью-карточки, живые React-экраны и SKILL.md для агентов. Архив скачивается через карточку в чате — нажмите кнопку ниже и подтвердите.</p>
-        </div>
-        <button class="dl__btn" id="dl-btn">
-          <i data-lucide="download"></i>
-          Скачать проект (.zip)
-        </button>
-      </div>
-    </section>
-  </div>
-
   <!-- ============ FOOTER ============ -->
   <div class="wrap">
     <footer class="hub-foot">
@@ -465,17 +448,6 @@
       return `<div class="sw"><div class="sw__chip" style="background:${c.hex};"></div>
         <div class="sw__meta"><div class="sw__name">${c.n}</div><div class="sw__hex">${c.hex}</div><div class="sw__role">${c.role}</div></div></div>`;
     }).join('');
-
-    // Download button → message host (chat download card). Fallback: alert.
-    document.getElementById('dl-btn').addEventListener('click', () => {
-      try {
-        window.parent.postMessage({ type: 'request-download', scope: 'project' }, '*');
-      } catch (e) {}
-      // Visual ack
-      const b = document.getElementById('dl-btn');
-      b.innerHTML = '<i data-lucide="check"></i> Готовлю архив…';
-      if (window.lucide) lucide.createIcons();
-    });
 
     lucide.createIcons();
   </script>
